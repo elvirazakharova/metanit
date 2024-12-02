@@ -35,7 +35,8 @@ urlpatterns = [
     re_path(r'^contact', views.contact),
     path('sc', views.sc, name='secret code'),
     path('error', views.error, name='error'),
-    path('greetings', views.greetings, name='greetings'),       
+    path('greetings', views.greetings, name='greetings'),    
+    path("user2/", views.user2),   
     # path("user/<name>/<int:age>", views.user),
     # Для представления параметра в шаблоне адреса используется выражение ?P<>. 
     # Общее определение параметру соответствует формату (?P<имя_параметра>регулярное_выражение). 
@@ -45,5 +46,6 @@ urlpatterns = [
     re_path(r"^user", views.user),
     path("products/", include(products_patterns)),
     path("product/<int:id>/", include(product_patterns)),
+    
 ]
 
