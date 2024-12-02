@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, \
-HttpResponseBadRequest, HttpResponseForbidden
+HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
   
 def index(request):
     host = request.META["HTTP_HOST"] # получаем адрес сервера
@@ -76,3 +77,24 @@ def access(request, age):
     # если нет, то возвращаем ошибку 403
     else:
         return HttpResponseForbidden("Доступ заблокирован: недостаточно лет")
+    
+def jsontest1(request):
+    return JsonResponse({"name": "Tom", "age": 38})
+
+def jsontest2(request):
+    bob = Person("Bob", 41, 'blue')
+    return JsonResponse(bob, safe=False, encoder=PersonEncoder)
+ 
+class Person:
+  
+    def __init__(self, name, age, color):
+        self.name = name    # имя человека
+        self.age = age        # возраст человека
+        self.color = color        # возраст человека
+ 
+class PersonEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Person):
+            return {"name": obj.name, "age": obj.age,  "color": obj.color*2}
+            # return obj.__dict__
+        return super().default(obj)
