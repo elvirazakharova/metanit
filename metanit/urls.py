@@ -46,6 +46,8 @@ urlpatterns = [
     re_path(r"^user", views.user),
     path("products/", include(products_patterns)),
     path("product/<int:id>/", include(product_patterns)),
-    
+    path("contact/", views.contact),
+    path("details/", views.details),
+    path("access/<int:age>", views.access),
 ]
 
