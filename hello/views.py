@@ -35,3 +35,21 @@ def greetings(request):
 
 def user(request, name="Undefined", age =0):
     return HttpResponse(f"<h2>Имя: {name}  Возраст:{age}</h2>")
+
+def products(request):    
+    return HttpResponse("Список товаров")
+ 
+def new(request):
+    return HttpResponse("Новые товары")
+ 
+def top(request):
+    return HttpResponse("Наиболее популярные товары")
+
+def product(request, id):
+    return HttpResponse(f"Товар {id}")
+ 
+def comments(request, id):
+    return HttpResponse(f"Комментарии о товаре {id}")
+ 
+def questions(request, id):
+    return HttpResponse(f"Вопросы о товаре {id}")
