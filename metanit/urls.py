@@ -21,4 +21,14 @@ urlpatterns = [
     path('', views.index, name='home'),
     re_path(r'^about', views.about, kwargs={"name":"Tom", "age": 38}),
     re_path(r'^contact', views.contact),
+    path('sc', views.sc, name='secret code'),
+    path('error', views.error, name='error'),
+    path('greetings', views.greetings, name='greetings'),       
+    # path("user/<name>/<int:age>", views.user),
+    # Для представления параметра в шаблоне адреса используется выражение ?P<>. 
+    # Общее определение параметру соответствует формату (?P<имя_параметра>регулярное_выражение). 
+    # Между угловыми скобками помещается название параметра. После закрывающей угловой скобки идет регулярное выражение, которому дожно соответствовать значение параметра.
+    re_path(r"^user/(?P<name>\D+)/(?P<age>\d+)", views.user),
+    re_path(r"^user/(?P<name>\D+)", views.user),
+    re_path(r"^user", views.user),
 ]
