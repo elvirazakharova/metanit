@@ -51,5 +51,7 @@ urlpatterns = [
     path("access/<int:age>", views.access),
     path('jsontest1', views.jsontest1),
     path('jsontest2', views.jsontest2),
+    path("set", views.set),
+    path("get", views.get),
 ]
 

@@ -98,3 +98,17 @@ class PersonEncoder(DjangoJSONEncoder):
             return {"name": obj.name, "age": obj.age,  "color": obj.color*2}
             # return obj.__dict__
         return super().default(obj)
+    
+def set(request):
+    # получаем из строки запроса имя пользователя
+    username = request.GET.get("username", "Undefined")
+    # создаем объект ответа
+    response = HttpResponse(f"Hello {username}")
+    # передаем его в куки
+    response.set_cookie("username", username)
+    return response
+
+def get(request):
+    # получаем куки с ключом username
+    username = request.COOKIES["username"]
+    return HttpResponse(f"I know you, {username}!")
