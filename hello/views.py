@@ -15,7 +15,19 @@ def index(request):
     return render(request, "index.html", context=data)
  
 def about(request):
-    return render(request, "about.html", context = {"person": Person("Tom")})   
+    return render(request, "about.html")   
+
+def skill(request):
+    return render(request, "skill.html")   
+
+def cat(request):
+    return render(request, "cat.html")   
+
+def awesome(request):
+    return render(request, "awesome.html")   
+
+def about3(request):
+    return render(request, "about3.html", context = {"person": Person("Tom")})   
 
 def contact(request):
     header = "Данные пользователя"              # обычная переменная

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Cat{% endblock title %}
+{% block header %}
+    <title>Это Була</title>
+{% endblock header %}
+{% block content%}   
+    <p>Самый лучший котик!</p>
+    <img src="{% static "images/bulochka_01.jpg" %}" alt=""" class="photo">
+    <img src="{% static "images/bulochka_02.jpg" %}" alt=""" class="photo">
+    <img src="{% static "images/bulochka_03.jpg" %}" alt=""" class="photo">
+    <img src="{% static "images/bulochka_04.jpg" %}" alt=""" class="photo">
+    <img src="{% static "images/bulochka_05.jpg" %}" alt=""" class="photo">
+    <img src="{% static "images/bulochka_06.jpg" %}" alt=""" class="photo">
+{% endblock content %}

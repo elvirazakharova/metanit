@@ -32,6 +32,10 @@ product_patterns = [
 urlpatterns = [
     path("", views.index),
     path("about/", views.about),
+    path("awesome/", views.awesome),
+    path("cat/", views.cat),
+    path("skill/", views.skill),
+    path("about3/", views.about3),
     path("contact/", views.contact),
     path('index3', views.index3, name='home'),
     re_path(r'^about2', views.about, kwargs={"name":"Tom", "age": 38}),
