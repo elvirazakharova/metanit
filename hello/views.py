@@ -1,8 +1,32 @@
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, \
 HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
+from django.shortcuts import render
+from django.template.response import TemplateResponse
   
+
 def index(request):
+    header = "Данные пользователя"              # обычная переменная
+    langs = ["Python", "Java", "C#"]            # список
+    user ={"name" : "Tom", "age" : 23}          # словарь
+    address = ("Абрикосовая", 23, 45)           # кортеж
+  
+    data = {"header": header, "langs": langs, "user": user, "address": address}
+    return render(request, "index.html", context=data)
+ 
+def about(request):
+    return render(request, "about.html", context = {"person": Person("Tom")})   
+
+def contact(request):
+    header = "Данные пользователя"              # обычная переменная
+    langs = ["Python", "Java", "C#"]            # список
+    user ={"name" : "Tom", "age" : 23}          # словарь
+    address = ("Абрикосовая", 23, 45)           # кортеж
+  
+    data = {"header": header, "langs": langs, "user": user, "address": address}
+    return TemplateResponse(request,  "contact.html", data)
+
+def index3(request):
     host = request.META["HTTP_HOST"] # получаем адрес сервера
     user_agent = request.META["HTTP_USER_AGENT"]    # получаем данные бразера
     path = request.path     # получаем запрошенный путь
@@ -13,14 +37,14 @@ def index(request):
         <p>User-agent: {user_agent}</p>
     """)
 
-def about(request, name ="Undefined", age =0):
+def about2(request, name ="Undefined", age =0):
     return HttpResponse(f"""
             <h2>О пользователе</h2>
             <p>Имя: {name}</p>
             <p>Возраст: {age}</p>
     """)
  
-def contact(request):
+def contact2(request):
     return HttpResponse("<h2>Контакты</h2>")
 
 def sc(request):
@@ -61,7 +85,7 @@ def user2(request):
     name = request.GET.get("name", "Undefined")
     return HttpResponse(f"<h2>Имя: {name}  Возраст: {age}</h2>")
 
-def contact(request):
+def contact2(request):
     return HttpResponseRedirect("/about")
  
 def details(request):
@@ -87,7 +111,7 @@ def jsontest2(request):
  
 class Person:
   
-    def __init__(self, name, age, color):
+    def __init__(self, name, age =20, color ='blue'):
         self.name = name    # имя человека
         self.age = age        # возраст человека
         self.color = color        # возраст человека

@@ -30,9 +30,12 @@ product_patterns = [
 ]
  
 urlpatterns = [
-    path('', views.index, name='home'),
-    re_path(r'^about', views.about, kwargs={"name":"Tom", "age": 38}),
-    re_path(r'^contact', views.contact),
+    path("", views.index),
+    path("about/", views.about),
+    path("contact/", views.contact),
+    path('index3', views.index3, name='home'),
+    re_path(r'^about2', views.about, kwargs={"name":"Tom", "age": 38}),
+    re_path(r'^contact2', views.contact2),
     path('sc', views.sc, name='secret code'),
     path('error', views.error, name='error'),
     path('greetings', views.greetings, name='greetings'),    
@@ -46,7 +49,7 @@ urlpatterns = [
     re_path(r"^user", views.user),
     path("products/", include(products_patterns)),
     path("product/<int:id>/", include(product_patterns)),
-    path("contact/", views.contact),
+    path("contact2/", views.contact2),
     path("details/", views.details),
     path("access/<int:age>", views.access),
     path('jsontest1', views.jsontest1),
