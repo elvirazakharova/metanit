@@ -16,49 +16,31 @@ Including another URLconf
 """
 from django.urls import path, re_path, include
 from hello import views
-
-products_patterns = [
-    path("", views.products),
-    path("new", views.new),
-    path("top", views.top),
-]
-
-product_patterns = [
-    path("", views.product),
-    path("comments", views.comments),
-    path("questions", views.questions),
-]
  
 urlpatterns = [
-    path("", views.index),
+    # Уроки
+    path("lessons", views.lessons),
+    path("page01_text", views.page01_text),
+    path("page02_html", views.page02_html),
+    re_path(r'^page03_re_path', views.page03_re_path),
+    path("page04_kwargs", views.page04_kwargs, kwargs={"arg1":"Green", "arg2":"Day"}),
+    path("page05_SecretCode", views.page05_SecretCode),
+    path("page06_StatusResponse400", views.page06_StatusResponse400),
+    path("page07_name/<str:name>", views.page07_name),
+    re_path(r"^page08_count_animals/(?P<count>\d+)/(?P<animals>\D+)", views.page08_count_animals),
+    re_path(r"^page08_count_animals/(?P<count>\d+)", views.page08_count_animals),
+    re_path(r"^page08_count_animals/", views.page08_count_animals),
+    path("page09_query_string_parameters/", views.page09_query_string_parameters),
+    path("page10_user_exist/<int:id>", views.page10_user_exist),
+    path("page11_access/<int:age>", views.page11_access),
+    path("page12_json", views.page12_json),
+    path("page13_set_cookie", views.page13_set_cookie),
+    path("page14_get_cookie", views.page14_get_cookie),
+    # основные страницы 
+    path("", views.about),
     path("about/", views.about),
     path("awesome/", views.awesome),
     path("cat/", views.cat),
     path("skill/", views.skill),
-    path("about3/", views.about3),
-    path("contact/", views.contact),
-    path('index3', views.index3, name='home'),
-    re_path(r'^about2', views.about, kwargs={"name":"Tom", "age": 38}),
-    re_path(r'^contact2', views.contact2),
-    path('sc', views.sc, name='secret code'),
-    path('error', views.error, name='error'),
-    path('greetings', views.greetings, name='greetings'),    
-    path("user2/", views.user2),   
-    # path("user/<name>/<int:age>", views.user),
-    # Для представления параметра в шаблоне адреса используется выражение ?P<>. 
-    # Общее определение параметру соответствует формату (?P<имя_параметра>регулярное_выражение). 
-    # Между угловыми скобками помещается название параметра. После закрывающей угловой скобки идет регулярное выражение, которому дожно соответствовать значение параметра.
-    re_path(r"^user/(?P<name>\D+)/(?P<age>\d+)", views.user),
-    re_path(r"^user/(?P<name>\D+)", views.user),
-    re_path(r"^user", views.user),
-    path("products/", include(products_patterns)),
-    path("product/<int:id>/", include(product_patterns)),
-    path("contact2/", views.contact2),
-    path("details/", views.details),
-    path("access/<int:age>", views.access),
-    path('jsontest1', views.jsontest1),
-    path('jsontest2', views.jsontest2),
-    path("set", views.set),
-    path("get", views.get),
 ]
 

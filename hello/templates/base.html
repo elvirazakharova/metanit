@@ -6,10 +6,14 @@
     <meta charset="utf-8" />
     <title>{% block title %}Default title{% endblock title %}</title>
 </head>
-<body>
-    <div><a href="/about">Hello, World!</a> | <a href="/skill">Что я умею</a></div>
+<body>    
+    <ul class="menu-main">
+        <li><a href="/about">Hello, World!</a></li>
+        <li><a href="/skill">Что я умею</a></li>
+        <li><a href="/lessons">Результаты заданий</a></li>  
+    </ul>
     <h1>{% block header %}{% endblock header %}</h1>
-    <div>{% block content%}{% endblock content %}</div>
-    <div>MyCorp. 2022. All rights reserved.</div>
+    <div class="tapira">{% block content%}{% endblock content %}</div>
 </body>
 </html>
+

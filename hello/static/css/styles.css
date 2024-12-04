@@ -1,5 +1,32 @@
-body{ font-family: Verdana;}
-h1{color:navy;}
+body{ font-family: "Trebuchet MS", "Lucida Sans";}
+h1{color:rgb(38, 38, 71);}
+.tapira div{
+    /* Это точно нужно: */
+    text-align: center;
+    vertical-align: top;
+    padding: 1em;
+    padding-top: 0;    
+    
+    /* Чтобы видеть блоки:  */
+    /* border: 5px solid #e76060c2;  */
+    /* background-color: #feb286; */
+}
+.tiora div{
+    /* Это точно нужно: */
+    display: inline-block; 
+
+    /* Чтобы видеть блоки:  */
+    /* background-color: #5870ce; */
+    /* border: 5px solid #311d3f; */
+}
+.emptydiv100{
+    width: 100px;
+}
+
+.link{
+    color: #000 !important;
+    text-decoration: none;
+}
 
 .icon{
     width: 20px;
@@ -9,4 +36,145 @@ h1{color:navy;}
 }
 .myphoto{
     width: 500px;
+}
+
+.rectangle {
+    counter-reset: li; 
+    list-style: none; 
+    font: 14px "Trebuchet MS", "Lucida Sans";
+    padding: 0;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.rectangle a {
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em .8em;
+    margin: .5em 0 .5em 2.5em;
+    background: #D3D4DA;
+    color: #444;
+    text-decoration: none;
+    transition: all .3s ease-out;
+}   
+.rectangle a:hover {background: #DCDDE1;}       
+.rectangle a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -2.5em;
+    top: 50%;
+    margin-top: -1em;
+    background: #9097A2;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+.rectangle a:after {
+    position: absolute;
+    content: "";
+    border: .5em solid transparent;
+    left: -1em;
+    top: 50%;
+    margin-top: -.5em;
+    transition: all .3s ease-out;
+}
+.rectangle a:hover:after {
+    left: -.5em;
+    border-left-color: #9097A2;
+}
+.rectangle a {
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em .8em;
+    margin: .5em 0 .5em 2.5em;
+    background: #D3D4DA;
+    color: #444;
+    text-decoration: none;
+    transition: all .3s ease-out;
+}
+.rectangle a:hover {background: #DCDDE1;}       
+.rectangle a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -2.5em;
+    top: 50%;
+    margin-top: -1em;
+    background: #9097A2;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+.rectangle a:after {
+    position: absolute;
+    content: "";
+    border: .5em solid transparent;
+    left: -1em;
+    top: 50%;
+    margin-top: -.5em;
+    transition: all .3s ease-out;
+}
+.rectangle a:hover:after {
+    left: -.5em;
+    border-left-color: #9097A2;
+}
+
+/* Меню */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+.menu-main {
+  list-style: none;
+  /* margin: 40px 0 5px; */
+  margin: 20px 0 1px; 
+  /* padding: 25px 0 5px; */
+  padding: 10px 0 1px;
+  text-align: center;
+  background: white;
+}
+.menu-main li {display: inline-block;}
+.menu-main li:after {
+  content: "|";
+  color: #606060;
+  display: inline-block;
+  vertical-align:top;
+}
+.menu-main li:last-child:after {content: none;}
+.menu-main a {
+  text-decoration: none;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 20px;
+  margin: 0 34px 0 30px;
+  font-size: 17px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color .2s;
+}
+.menu-main a, .menu-main a:visited {color: #9d999d;}
+.menu-main a.current, .menu-main a:hover{color: #feb386;}
+.menu-main a:before,
+.menu-main a:after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  top: auto;
+  right: 50%;
+  bottom: -5px;
+  left: 50%;
+  background: #feb386;
+  transition: .8s;
+}
+.menu-main a:hover:before, .menu-main .current:before {left: 0;}
+.menu-main a:hover:after, .menu-main .current:after {right: 0;}   
+@media (max-width: 550px) {
+.menu-main {padding-top: 0;}
+.menu-main li {display: block;}
+.menu-main li:after {content: none;}
+.menu-main a {
+  padding: 25px 0 20px; 
+  margin: 0 30px;
+}
 }

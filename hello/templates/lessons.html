@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Результаты заданий{% endblock title %}
+{% block header %}
+    <title>Результаты заданий</title>
+{% endblock header %}
+{% block content%}   
+<ol class="rectangle">
+    <li><a href="/page01_text">Обработка запроса с обычным текстом</a></li>
+    <li><a href="/page02_html">Обработка запроса с html кодом</a></li>
+    <li><a href="/page03_re_path">Функция re_path</a></li>
+    <li><a href="/page04_kwargs">Параметр kwargs функции path</a></li>
+    <li><a href="/page05_SecretCode">Передача headers</a></li>  
+    <li><a href="/page06_StatusResponse400">Установить ошибку 400</a></li>  
+    <li><a href="/page07_name/Имя">Задать один параметр маршрута</a></li>
+    <li><a href="/page08_count_animals/3/овца">Задать несколько параметров маршрута</a></li>
+    <li><a href="/page09_query_string_parameters/?param1=Tom&param2=22">Параметры строки запроса</a></li>
+    <li><a href="/page10_user_exist/2">Проверить параметр. Установка ошибки 404</a></li>
+    <li><a href="/page11_access/21">Проверка возраста. Установка ошибок 400 и 403</a></li>
+    <li><a href="/page12_json">Отправка json, сериализация объектов</a></li>
+    <li><a href="/page13_set_cookie?username=Boris">Отправка куки</a></li>
+    <li><a href="/page14_get_cookie">Получение куки</a></li>    
+</ol>
+{% endblock content %}

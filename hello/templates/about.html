@@ -5,9 +5,20 @@
     <title>Elvira</title>
 {% endblock header %}
 {% block content%}
-    <h1>Привет!</h1>
-    <p>Меня зовут Эльвира, мне 34 года и у меня есть толстый кот.</p>
-    <img src="{% static "images/my_photo.png" %}" alt=""Это я" class="myphoto">
+<div>
+    <div class="tiora">
+        <div>
+            <h1>Привет!</h1>
+            <p>Меня зовут Эльвира, мне 34 года и у меня есть толстый кот.</p>
+            <!-- <div>some else</div> -->
+        </div>
+        <div class="emptydiv100"></div>
+        <div>
+            <img src="{% static "images/my_photo.png" %}" alt=""Это я" class="myphoto">
+        </div>
+    </div>
     {% include "awesome.html"  %}
+</div>
+
 {% endblock content %}
 
