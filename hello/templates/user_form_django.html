@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}User form Djan{% endblock title %}
+{% block header %}
+    <title>User form Django</title>
+{% endblock header %}
+{% block content_left%}   
+    <!-- Получение POST-запроса -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}  
+        <input type="submit" value="Send" >
+    </form>
+{% endblock content_left %}

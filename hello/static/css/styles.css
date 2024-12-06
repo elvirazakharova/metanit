@@ -1,5 +1,6 @@
 body{ font-family: "Trebuchet MS", "Lucida Sans";}
 h1{color:rgb(38, 38, 71);}
+
 .tapira div{
     /* Это точно нужно: */
     text-align: center;
@@ -177,4 +178,37 @@ h1{color:rgb(38, 38, 71);}
   padding: 25px 0 20px; 
   margin: 0 30px;
 }
+}
+
+label {
+    display: inline-block; /* Элемент теперь может принимать установленную ширину */
+    width: 60px; /* Установите необходимую ширину */
+    text-align: right; 
+}
+
+input, label {
+    margin-top: 10px;
+    }
+
+table.niary {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    border-radius: 20px;  
+}
+
+.niary th {
+    font-size: 22px;
+    font-weight: 300;
+    padding: 12px 10px;
+    border-bottom: 2px solid #feb386;
+    color: #feb386;
+}
+.niary tbody tr:nth-child(2) {
+    border-bottom: 2px solid #feb386;
+}
+.niary td {
+    padding: 10px;
+    color: #8D8173;
 }

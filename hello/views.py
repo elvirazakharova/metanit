@@ -3,6 +3,7 @@ HttpResponseBadRequest, HttpResponseNotFound, HttpResponseForbidden, JsonRespons
 from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from .forms import UserForm
 
 # уроки
   
@@ -102,6 +103,30 @@ def page14_get_cookie(request):
         return HttpResponse(f"I know you, {username}!")
     else:
         return HttpResponse('''Who's here? (cookie "username" not found)''')
+    
+def page15_user_form(request):
+    return render(request, "user_form.html")   
+
+def page15_postuser(request):
+    # получаем из данных запроса POST отправленные через форму данные
+    name = request.POST.get("name", "Undefined")
+    age = request.POST.get("age", 1)
+    langs = request.POST.getlist("languages", ["python"])
+    colors = request.POST.getlist("colors", ["Pink"])
+    return HttpResponse(f"""
+                <div>Name: {name}  Age: {age}<div>
+                <div>Languages: {langs}</div>
+                <div>Languages: {colors}</div>
+            """)
+
+def page16_user_form_django(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        age = request.POST.get("age")
+        return HttpResponse(f"<h2>Привет, {name}, твой возраст: {age}</h2>")
+    else:
+        userform = UserForm()
+        return render(request, "user_form_django.html", {"form": userform})
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная

@@ -36,6 +36,9 @@ urlpatterns = [
     path("page12_json", views.page12_json),
     path("page13_set_cookie", views.page13_set_cookie),
     path("page14_get_cookie", views.page14_get_cookie),
+    path("page15_user_form", views.page15_user_form),
+    re_path(r'page15_postuser', views.page15_postuser),
+    path("page16_user_form_django", views.page16_user_form_django),
     # основные страницы 
     path("", views.about),
     path("about/", views.about),

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}User form{% endblock title %}
+{% block header %}
+    <title>User form</title>
+{% endblock header %}
+{% block content%}   
+    <p>Отправка пользовательских форм</p>
+    <h2>User form</h2>
+    <!-- Здесь определена форма условно для ввода данных пользователя, которая в запросе типа POST (атрибут method="post")
+    отправляет данные по адресу "postuser/" (атрибут action="postuser/"). -->
+    <form method="post" action="page15_postuser/">
+        <!-- Также внутри формы используется тег {% csrf_token %}. Он позволяет защитить приложение от CSRF-атак, 
+        добавляя в форму в виде скрытого поля csrf-токен. Кроме того, Django по умолчанию требует наличия данного токена в получаемых данных в запросе POST. -->
+        {% csrf_token %}
+        <p>Name:<br> <input name="name" /></p>
+        <p>Age:<br> <input name="age" type="number" /></p>
+        <p>
+            Languages:<br />
+            <input name="languages" /><br />
+            <input name="languages" /><br />
+            <input name="languages" /><br />
+        </p>
+        <p>
+            Colors:<br />
+            <select multiple name="colors">
+                <option>Blue</option>
+                <option>Red</option>
+                <option>Green</option>
+                <option>Black</option>
+             </select>
+        </p>
+        <!-- <table class="niary">           
+            <thead>
+                <tr>
+                    <th>First Name 2</th>
+                    <th>Last Name</th>
+                    <th>ZIP</th>
+                    <th>Birthday</th>
+                    <th>Points</th>
+                    <th>Average</th>
+                    <th>Amount</th>
+                </tr> 
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gloria</td>
+                    <td>Reeves</td>
+                    <td>67439</td>
+                    <td>10/18/1985</td>
+                    <td>4</td>
+                    <td>0.1</td>
+                    <td>$50</td>
+                </tr>
+                <tr>
+                    <td>Graham</td>
+                    <td>Bonner</td>
+                    <td>90727</td>
+                    <td>12/07/1983</td>
+                    <td>4</td>
+                    <td>0.9</td>
+                    <td>$90</td>
+                </tr>                
+            </tbody>
+        </table> -->
+        <input type="submit" value="Send" />
+    </form>
+{% endblock content %}
