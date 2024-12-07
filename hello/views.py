@@ -3,7 +3,7 @@ HttpResponseBadRequest, HttpResponseNotFound, HttpResponseForbidden, JsonRespons
 from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 from django.template.response import TemplateResponse
-from .forms import UserForm
+from .forms import UserForm, FieldTypesForm
 
 # уроки
   
@@ -121,12 +121,17 @@ def page15_postuser(request):
 
 def page16_user_form_django(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        age = request.POST.get("age")
-        return HttpResponse(f"<h2>Привет, {name}, твой возраст: {age}</h2>")
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            name = request.POST.get("name")
+            age = request.POST.get("age")
+            return HttpResponse(f"<h2>Привет, {name}, твой возраст: {age}.</h2>")
+        else:
+            return HttpResponse("Invalid data")
     else:
-        userform = UserForm()
-        return render(request, "user_form_django.html", {"form": userform})
+        userform = UserForm(field_order = ["comment", "age", "name"])
+        userform_FieldTypes = FieldTypesForm()
+        return render(request, "user_form_django.html", {"form": userform, "FieldTypesForm": userform_FieldTypes})
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная

@@ -1,13 +1,22 @@
 {% extends "base.html" %}
-{% block title %}User form Djan{% endblock title %}
+{% block title %}User form Django{% endblock title %}
 {% block header %}
     <title>User form Django</title>
 {% endblock header %}
 {% block content_left%}   
     <!-- Получение POST-запроса -->
     <form method="POST">
+    <!-- Для тестирования формы можно установить у ней атрибут novalidate:    -->
+    <!-- <form method="POST" novalidate> -->
         {% csrf_token %}
         {{ form }}  
         <input type="submit" value="Send" >
+    </form>
+    <form>
+        <br>
+        <h2>Примеры полей</h2>
+        {% csrf_token %}
+        <!-- as_table as_ul as_p as_div -->
+        {{ FieldTypesForm.as_div }}     
     </form>
 {% endblock content_left %}
