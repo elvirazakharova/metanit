@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create person{% endblock title %}
+{% block header %}
+    <title>PCreate person</title>
+{% endblock header %}
+{% block content%}  
+
+<form method="post" action="create_person/">
+    {% csrf_token %}
+    <p>Name:<br> <input name="name" /></p>
+    <p>Age:<br> <input name="age" type="number" /></p>    
+    <input type="submit" value="Создать" name='_'/>
+    <input type="submit" value="Создать асинхронно" name='_async'/>
+    <input type="submit" value="Save" name='_save'/>
+    <input type="submit" value="bulk_create" name='_bulk_create'/>
+</form>
+
+
+{% endblock content %}

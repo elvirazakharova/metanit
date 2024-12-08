@@ -4,6 +4,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from .forms import UserForm, FieldTypesForm
+from .models import Person
+import asyncio
 
 # уроки
   
@@ -112,11 +114,11 @@ def page15_postuser(request):
     name = request.POST.get("name", "Undefined")
     age = request.POST.get("age", 1)
     langs = request.POST.getlist("languages", ["python"])
-    colors = request.POST.getlist("colors", ["Pink"])
+    colors = request.POST.getlist("colors", ["Pink"])    
     return HttpResponse(f"""
-                <div>Name: {name}  Age: {age}<div>
+                <div>Name: {name}  Age: {age}</div>
                 <div>Languages: {langs}</div>
-                <div>Languages: {colors}</div>
+                <div>Colors: {colors}</div>
             """)
 
 def page16_user_form_django(request):
@@ -132,6 +134,60 @@ def page16_user_form_django(request):
         userform = UserForm(field_order = ["comment", "age", "name"])
         userform_FieldTypes = FieldTypesForm()
         return render(request, "user_form_django.html", {"form": userform, "FieldTypesForm": userform_FieldTypes})
+    
+def page17_select(request):
+    # получаем все объекты
+    people = Person.objects.all() 
+    # получаем объекты с именем Tom
+    people = people.filter(name = "Tom") 
+    # получаем объекты с возрастом, равным 31
+    people = people.filter(age = 31)
+    html_code = f'<p>Запрос:</p><p>{people.query}</p>'   
+    html_code = html_code + f'<p>Результат запроса:</p>' 
+    # здесь происходит выполнения запроса в БД
+    for person in people:
+       html_code = html_code + f'<p>{person.id}.{person.name} - {person.age}</p>'
+    return HttpResponse(html_code)
+
+def page18_create_record(request):
+    return render(request, "create_person.html")   
+
+async def acreate_person(name, age):
+    new_person = await Person.objects.acreate(name=name, age=age)
+  
+
+def create_person(request):
+    # получаем из данных запроса POST отправленные через форму данные
+    name = request.POST.get("name")
+    age = request.POST.get("age")
+    if request.POST:
+        if '_' in request.POST:
+            new_person = Person.objects.create(name=name, age=age)
+            return HttpResponse(f"""
+                                <div>Создана новая запись Person</div>
+                                <div>Name: {new_person.name}  Age: {new_person.age}</div> 
+                                """)
+        elif '_async' in request.POST:
+            asyncio.run(acreate_person(name, age)) 
+            return HttpResponse(f"<div>Запущен процесс создания записи Person</div>")
+        elif '_save' in request.POST:
+            new_person = Person(name=name, age=age)
+            new_person.save()
+            return HttpResponse(f"""
+                                <div>Создана новая запись Person</div>
+                                <div>Name: {new_person.name}  Age: {new_person.age} id: {new_person.id}</div> 
+                                """)
+        elif '_bulk_create' in request.POST:
+            age1 = int(age) + 1
+            age2 = int(age) + 2
+            people = Person.objects.bulk_create([
+                Person(name=name + '_1', age=age1),
+                Person(name=name + '_2', age=age2),
+            ])
+            http_code = ''
+            for person in people:
+                http_code = http_code + f"<p>id: {person.id} Name: {person.name} Age: {person.age}</p>"
+            return HttpResponse(http_code)
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
