@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create person{% endblock title %}
+{% block header %}
+    <title>PCreate person</title>
+{% endblock header %}
+{% block content%}  
+
+<form method="post" action="get_person/">
+    {% csrf_token %}
+    <p>Name:<br> <input name="name" /></p>
+    <p>Age:<br> <input name="age" type="number" /></p>    
+    <input type="submit" value="get" name='get'/>
+    <input type="submit" value="get_or_create" name='get_or_create'/>
+    <input type="submit" value="all" name='all'/>
+    <input type="submit" value="filter" name='filter'/>
+    <input type="submit" value="exclude" name='exclude'/>
+    <input type="submit" value="in_bulk" name='in_bulk'/>
+    <input type="submit" value="OFFSET 5 LIMIT 5" name='offset_limit'/>
+</form>
+
+
+{% endblock content %}

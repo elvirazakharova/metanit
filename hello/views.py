@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 from .forms import UserForm, FieldTypesForm
 from .models import Person
 import asyncio
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 # уроки
   
@@ -153,8 +154,7 @@ def page18_create_record(request):
     return render(request, "create_person.html")   
 
 async def acreate_person(name, age):
-    new_person = await Person.objects.acreate(name=name, age=age)
-  
+    new_person = await Person.objects.acreate(name=name, age=age)  
 
 def create_person(request):
     # получаем из данных запроса POST отправленные через форму данные
@@ -188,6 +188,94 @@ def create_person(request):
             for person in people:
                 http_code = http_code + f"<p>id: {person.id} Name: {person.name} Age: {person.age}</p>"
             return HttpResponse(http_code)
+    
+def page19_get_records(request):
+    return render(request, "get_person.html")   
+
+def get_person(request):    
+    name = request.POST.get("name")
+    age = request.POST.get("age")
+    if request.POST:
+        if 'get' in request.POST: 
+            http_code = '<h2>get</h2>'              
+            try:
+                http_code = f"<p>filter name: {name} filter age: {age}</p>"
+                if name != None and age != None and name != '' and age != '':                    
+                    person = Person.objects.get(name=name, age=age)
+                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+                elif name != None and name != '':     
+                    person = Person.objects.get(name=name)
+                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+                elif age != None and age != '':     
+                    person = Person.objects.get(age=age)
+                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
+                else:
+                    http_code = http_code + "<p>Пустой параметр</p>"
+            except ObjectDoesNotExist:
+                http_code = http_code + "<p>Объект не существует</p>"
+            except MultipleObjectsReturned:
+                http_code = http_code + "<p>Найдено более одного объекта</p>"
+            return HttpResponse(http_code) 
+        elif 'get_or_create' in request.POST: 
+            http_code = '<h2>get_or_create</h2>'      
+            try:
+                http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+                if name != None and age != None and name != '' and age != '':    
+                    new_person, created = Person.objects.get_or_create(name=name, age=age)
+                    if created:
+                        http_code = http_code + '<p>Создана новая запись</p>'
+                    else:
+                        http_code = http_code + '<p>найдена существующая запись</p>'
+                    http_code = http_code + f"<p>id: {new_person.id} name: {new_person.name} age: {new_person.age}</p>"       
+                else:
+                    http_code = http_code + "<p>Пустой параметр</p>"
+
+            except MultipleObjectsReturned:
+                http_code = http_code + "<p>Найдено более одного объекта</p>"
+            return HttpResponse(http_code) 
+        elif 'all' in request.POST: 
+            http_code = '<h2>all</h2>'   
+            people = Person.objects.all() 
+            for person in people:
+                http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
+            return HttpResponse(http_code) 
+        elif 'filter' in request.POST: 
+            http_code = '<h2>filter</h2>'  
+            http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+            if name != None and age != None and name != '' and age != '':   
+                people = Person.objects.filter(name=name, age=age)
+                for person in people:
+                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+            else:
+                http_code = http_code + "<p>Пустой параметр</p>"
+            return HttpResponse(http_code) 
+        elif 'exclude' in request.POST: 
+            http_code = '<h2>exclude</h2><p>С указанным именем, но исключая указанный возраст</p><p>... и это не работает ожидаемым образом по неизвестным мне причинам</p>'  
+            http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+            if name != None and age != None and name != '' and age != '': 
+                people = Person.objects.filter(name=name).exclude(age=age)
+                for person in people:
+                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"      
+            else:
+                    http_code = http_code + "<p>Пустой параметр</p>"
+            return HttpResponse(http_code) 
+        elif 'in_bulk' in request.POST: 
+            http_code = '<h2>in_bulk</h2>'       
+            # http_code = f"<p>filter name: {name} filter age: {age}</p>"
+            people = Person.objects.in_bulk() 
+            for id in people:
+                http_code = http_code + f"<p>id: {people[id].id} name: {people[id].name} age: {people[id].age}</p>"  
+            return HttpResponse(http_code) 
+        elif 'offset_limit' in request.POST:             
+            http_code = '<h2>offset_limit</h2><p>Выбираем первые 5 объектов, пропуская первые 5 объектов.</p>'    
+            people = Person.objects.all()[5:10]
+            for person in people:
+                http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"  
+            return HttpResponse(http_code) 
+
+           
+           
+
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
