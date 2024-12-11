@@ -272,10 +272,83 @@ def get_person(request):
             for person in people:
                 http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"  
             return HttpResponse(http_code) 
-
+        
+def page20_py_types(request):    
+    http_code = ''
+    a = True
+    http_code = http_code + f'<h2>bool</h2><p>code: a = True<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    a = 1
+    http_code = http_code + f'<h2>int</h2><p>code: a = 1<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    a = 0b1011
+    http_code = http_code + f'<p>code: a = 0b1011<br>a = {a:b}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в двоичной системе</p>'
+    a = 0o17
+    http_code = http_code + f'<p>code: a = 0o17<br>a = {a:o}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в восьмиричной системе</p>'
+    a = 0xA1
+    http_code = http_code + f'<p>code: a = 0xA1<br>a = {a:x}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в шестнадцатеричной системе</p>'
+    a = -1.23
+    http_code = http_code + f'<h2>float</h2><p>code: a = -1.23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: Число float может иметь только 18 значимых символов</p>'
+    a = .23
+    http_code = http_code + f'<p>code: a = .23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    a = 3.9e3
+    http_code = http_code + f'<p>code: a = 3.9e3<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    a = ("Laudate omnes gentes laudate "
+         "Magnificat in secula ")
+    http_code = http_code + f'<h2>str</h2><p>code: a = ("Laudate omnes gentes laudate "<br>"Magnificat in secula ")<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    a = "Message:\n\"Hello World\""
+    http_code = http_code + r'<p>code: a = "Message:\n\"Hello World\""' + f'<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'    
+    return HttpResponse(http_code)
            
-           
+def page21_py_arithmetic_operations(request):  
+    http_code = ''
+    a = 2 + 2
+    http_code = http_code + f'<h2>+</h2><p>code: a = 2 + 2<br>a = {a}</p>'
+    a += 2
+    http_code = http_code + f'<p>code: a += 2<br>a = {a}<br>description: Присвоение результата сложения</p>'
+    a = 10 - 10
+    http_code = http_code + f'<h2>-</h2><p>code: a = 10 - 10<br>a = {a}</p>'
+    a -= 3
+    http_code = http_code + f'<p>code: a -= 3<br>a = {a}<br>description: Присвоение результата вычитания</p>'
+    a = 10 * 10
+    http_code = http_code + f'<h2>*</h2><p>code: a = 10 * 10<br>a = {a}</p>'
+    a *= 0.36
+    http_code = http_code + f'<p>code: a *= 0.36<br>a = {a}<br>description: Присвоение результата умножения</p>'
+    a = 10 / 10
+    http_code = http_code + f'<h2>/</h2><p>code: a = 10 / 10<br>a = {a}</p>'
+    a = 2.0001 / 5
+    http_code = http_code + f'<p>code: a = 2.0001 / 5<br>a = {a}</p><br>description: Погрешности никто не отменял'
+    a /= 3
+    http_code = http_code + f'<p>code: a /= 3<br>a = {a}<br>description: Присвоение результата деления</p>'
+    a = 7 // 2
+    http_code = http_code + f'<h2>//</h2><p>code: a = 7 // 2<br>a = {a}<br>description: Целочисленное деление двух чисел</p>'
+    a //= 3
+    http_code = http_code + f'<p>code: a //= 3<br>a = {a}<br>description: Присвоение результата целочисленного деления</p>'
+    a = 7 ** 2
+    http_code = http_code + f'<h2>**</h2><p>code: a = 7 ** 2<br>a = {a}<br>description: Возведение в степень</p>'
+    a **= 3
+    http_code = http_code + f'<p>code: a = 7 ** 2<br>a = {a}<br>description: Присвоение степени числа</p>'
+    a = 11 % 3
+    http_code = http_code + f'<h2>%</h2><p>code: a = 11 % 3<br>a = {a}<br>description: Получение остатка от деления</p>'
+    a %= 2
+    http_code = http_code + f'<p>code: a %= 2<br>a = {a}<br>description: Присвоение остатка от деления</p>'
+    http_code = http_code + f'<h2>round()</h2>'
+    a = round(2.49)
+    http_code = http_code + f'<p>code: a = round(2.49)<br>a = {a}<br>description: Округление до ближайшего целого 2</p>'
+    a = round(2.51)
+    http_code = http_code + f'<p>code: a = round(2.51)<br>a = {a}<br>description: Округление до ближайшего целого 3</p>'
+    http_code = http_code + f'<p>Если округляемая часть равна одинаково удалена от двух целых чисел, то округление идет к ближайшему четному</p>'
+    a = round(2.5)
+    http_code = http_code + f'<p>code: a = round(2.5)<br>a = {a}<br>description: 2 - ближайшее четное</p>'
+    a = round(3.5)
+    http_code = http_code + f'<p>code: a = round(3.5)<br>a = {a}<br>description: 4 - ближайшее четное</p>' 
+    a = round(2.655, 2)
+    http_code = http_code + f'<p>code: a = round(2.655, 2)<br>a = {a}<br>description: 2.65 - округление не до четного. Потомучто.</p>'
+    return HttpResponse(http_code)       
 
+def page22_py_in(request):  
+    http_code = ''
+    http_code = http_code + f'<h2>in</h2><p>code: "hello" in "hello world!"<br>a = {"hello" in "hello world!"}<br>description: Можно искать подстроку с помощью in</p>'
+    http_code = http_code + f'<p>code: "gold" in "hello world!"<br>a = {"gold" in "hello world!"}</p>'
+    return HttpResponse(http_code)  
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная

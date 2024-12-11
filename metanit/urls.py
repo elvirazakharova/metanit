@@ -44,6 +44,9 @@ urlpatterns = [
     re_path(r'create_person', views.create_person),
     path("page19_get_records", views.page19_get_records),
     re_path(r'get_person', views.get_person),
+    path("page20_py_types", views.page20_py_types),
+    path("page21_py_arithmetic_operations", views.page21_py_arithmetic_operations),
+    path("page22_py_in", views.page22_py_in),
     # основные страницы 
     path("", views.about),
     path("about/", views.about),
