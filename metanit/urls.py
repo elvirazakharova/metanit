@@ -47,6 +47,9 @@ urlpatterns = [
     path("page20_py_types", views.page20_py_types),
     path("page21_py_arithmetic_operations", views.page21_py_arithmetic_operations),
     path("page22_py_in", views.page22_py_in),
+    path("page23_py_function_parameters", views.page23_py_function_parameters),
+    path("page24_py_lambda", views.page24_py_lambda),
+    path("page25_py_global_nonlocal", views.page25_py_global_nonlocal),
     # основные страницы 
     path("", views.about),
     path("about/", views.about),

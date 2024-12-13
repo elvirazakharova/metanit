@@ -350,6 +350,80 @@ def page22_py_in(request):
     http_code = http_code + f'<p>code: "gold" in "hello world!"<br>a = {"gold" in "hello world!"}</p>'
     return HttpResponse(http_code)  
 
+def page23_py_function_parameters(request):  
+    http_code = ''
+    def boo(*, arg1): return arg1
+    a = boo(arg1=1)    
+    http_code = http_code + f'<p>code:<br>"def boo(*, arg1): return arg1 <br> a = boo(arg1=1)"<br>a = {a}<br>description: После "*, " идут именованные параметры</p>'
+    def bar(arg1, /): return arg1
+    a = bar(2) 
+    http_code = http_code + f'<p>code:<br>"def bar(arg1, /): return arg1 <br> a = bar(2)"<br>a = {a}<br>description: Параметры до символа ", /"  являются позиционными</p>'
+    def foo(arg1, /, arg2 = 10, *, arg3): return arg1 + arg2 + arg3
+    a = foo(1, 2, arg3 = 3) 
+    http_code = http_code + f'<p>code:<br>"def foo(arg1, /, arg2 = 10, *, arg3): return arg1 + arg2 + arg3 <br> a = foo(1, 2, arg3 = 3)"<br>a = {a}<br>description: Позиционный обязательный / позиционный необзятальный * именованный'
+    a = foo(1, arg3 = 3) 
+    http_code = http_code + f'<br>a = foo(1, arg3 = 3)<br>a = {a}'
+    a = foo(1, arg3 = 3, arg2 = 7) 
+    http_code = http_code + f'<br>a = foo(1, arg3 = 3, arg2 = 7)<br>a = {a}</p>'
+    def far(*arg1):
+        result = 0
+        for i in arg1:
+            result += i
+        return result
+    a = far(11, 12, 13)       
+    http_code = http_code + f'<p>code:<br>def far(*arg1):<br> for i in arg1:<br>result += i<br>a = far(11, 12, 13)<br>return result"<br>a = {a}<br>description: * перед именем параметра означает неопределенное количество значений</p>'
+    return HttpResponse(http_code)  
+
+def page24_py_lambda(request):  
+    http_code = ''
+    def boo(a, b):
+        return a * b
+    def select_operation(choice):
+        if choice == 1:
+            return lambda a, b: a + b
+        elif choice == 2:
+            return boo
+    operation = select_operation(1) 
+    a = operation(3, 2)
+    http_code = http_code + f'''<p><pre>code:
+def boo(a, b):
+    return a * b
+def select_operation(choice):
+    if choice == 1:
+        return lambda a, b: a + b
+    elif choice == 2:
+        eturn boo
+operation = select_operation(1) 
+a = operation(3, 2)<pre>a = {a}</p>'''
+    operation = select_operation(2) 
+    a = operation(3, 2)
+    http_code = http_code + f'<p>operation = select_operation(2)<br>a = operation(3, 2)<br>a = {a}</p>'   
+    return HttpResponse(http_code)  
+
+def page25_py_global_nonlocal(request):  
+    http_code = ''
+    local_a = 'local_a'
+    def boo():
+        nonlocal local_a
+        local_a = 'local_a`'
+    boo()
+    http_code = http_code + f'''<h2>nonlocal</h2><p><pre>code:
+local_a = 'local_a'
+def boo():
+    nonlocal local_a
+    local_a = 'local_a`'
+boo()<pre>local_a = {local_a}<br>description: nonlocal позволяет работать с переменными в ближайшей видимости</p>'''  
+    def bar():
+        global global_b
+        global_b = 'global_b'
+    bar()
+    http_code = http_code + f'''<h2>global</h2><p><pre>code:
+def bar():
+    global global_b
+    global_b = 'global_b'
+bar()<pre>global_b = {global_b}<br>description: global позволяет создавать и обращаться к глобальным переменным</p>'''
+    return HttpResponse(http_code)  
+
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
 #     langs = ["Python", "Java", "C#"]            # список
