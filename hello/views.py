@@ -424,6 +424,66 @@ def bar():
 bar()<pre>global_b = {global_b}<br>description: global позволяет создавать и обращаться к глобальным переменным</p>'''
     return HttpResponse(http_code)  
 
+def page26_py_string(request): 
+    http_code = '<h2>5.1</h2><p>Напишите с заглавной буквы слово, которое начинается с буквы m:</p>'
+    song = """When an eel grabs your arm,
+And it causes great harm, 
+That's - a moray!"""
+    http_code = http_code + f'<p><pre>{song}</pre></p>'
+    result = song.replace(' m', ' M')
+    http_code = http_code +"<p>code:</p><p><pre>result = song.replace(' m', ' M')</pre></p>"
+    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code = http_code + '<h2>5.2</h2><p>Выведите на экран все вопросы из списка, а так же правильные ответы в таком виде:</p>'
+    http_code = http_code + "<p>Q: вопрос</p><p>A: ответ</p>"
+    questions = [ 
+"We don't serve strings around here. Are you a string?", 
+"What is said on Father's Day in the forest?", 
+"What makes the sound 'Sis! Boom! Bah!'?" ] 
+    answers = [ "An exploding sheep.", 
+"No, I'm a frayed knot.", 
+"'Pop!' goes the weasel." ]  
+    http_code = http_code + f'<p>{questions =}</p>'
+    http_code = http_code + f'<p>{answers =}</p>'
+    result = ''
+    q_a = ((0, 1), (1, 2), (2, 0)) 
+    for q, a in q_a:
+        result = result + f'Q: {questions[q]}\n'
+        result = result + f'A: {answers[a]}\n'
+    http_code = http_code +'''<p>code:</p><p>
+<pre>result = ''
+q_a = ((0, 1), (1, 2), (2, 0)) 
+for q, a in q_a:
+    result = result + f'Q: {questions[q]}\\n'
+    result = result + f'A: {answers[a]}\\n'</pre></p>'''
+    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    base_name = ["Spitz", "Duck", "Pumpkin"] 
+    result = ''
+    for item in base_name:
+        result = result + '%sy Mc%sface\n' % (item, item)
+    http_code = http_code + '<h2>5.4</h2><p>Форматирование в старом стиле</p>'
+    http_code = http_code +'''<p>code:</p><p>
+<pre>for item in base_name:
+result = result + '%sy Mc%sface\\n' % (item, item)</pre></p>'''
+    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    result = ''
+    for item in base_name:
+        result = result + '{}y Mc{}face\n'.format(item, item)
+    http_code = http_code + '<h2>5.5</h2><p>Форматирование в новом стиле</p>'
+    http_code = http_code +'''<p>code:</p><p>
+<pre>for item in base_name:
+result = result + '{}y Mc{}face\\n' % (item, item)</pre></p>'''
+    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    result = ''
+    for item in base_name:
+        result = result + f'{item} Mc{item}yface\n'
+    http_code = http_code + '<h2>5.6</h2><p>Форматирование с использованием f-строк</p>'
+    http_code = http_code +'''<p>code:</p><p>
+<pre>for item in base_name:
+result = result + f'{item}y Mc{item}face\\n'</pre></p>'''
+    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+
+    return HttpResponse(http_code)  
+
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
 #     langs = ["Python", "Java", "C#"]            # список
