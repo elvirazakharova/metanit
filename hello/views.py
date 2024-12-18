@@ -186,7 +186,7 @@ def create_person(request):
             ])
             http_code = ''
             for person in people:
-                http_code = http_code + f"<p>id: {person.id} Name: {person.name} Age: {person.age}</p>"
+                http_code += f"<p>id: {person.id} Name: {person.name} Age: {person.age}</p>"
             return HttpResponse(http_code)
     
 def page19_get_records(request):
@@ -202,176 +202,176 @@ def get_person(request):
                 http_code = f"<p>filter name: {name} filter age: {age}</p>"
                 if name != None and age != None and name != '' and age != '':                    
                     person = Person.objects.get(name=name, age=age)
-                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+                    http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
                 elif name != None and name != '':     
                     person = Person.objects.get(name=name)
-                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+                    http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
                 elif age != None and age != '':     
                     person = Person.objects.get(age=age)
-                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
+                    http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
                 else:
-                    http_code = http_code + "<p>Пустой параметр</p>"
+                    http_code += "<p>Пустой параметр</p>"
             except ObjectDoesNotExist:
-                http_code = http_code + "<p>Объект не существует</p>"
+                http_code += "<p>Объект не существует</p>"
             except MultipleObjectsReturned:
-                http_code = http_code + "<p>Найдено более одного объекта</p>"
+                http_code += "<p>Найдено более одного объекта</p>"
             return HttpResponse(http_code) 
         elif 'get_or_create' in request.POST: 
             http_code = '<h2>get_or_create</h2>'      
             try:
-                http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+                http_code += f"<p>filter name: {name} filter age: {age}</p>"
                 if name != None and age != None and name != '' and age != '':    
                     new_person, created = Person.objects.get_or_create(name=name, age=age)
                     if created:
-                        http_code = http_code + '<p>Создана новая запись</p>'
+                        http_code += '<p>Создана новая запись</p>'
                     else:
-                        http_code = http_code + '<p>найдена существующая запись</p>'
-                    http_code = http_code + f"<p>id: {new_person.id} name: {new_person.name} age: {new_person.age}</p>"       
+                        http_code += '<p>найдена существующая запись</p>'
+                    http_code += f"<p>id: {new_person.id} name: {new_person.name} age: {new_person.age}</p>"       
                 else:
-                    http_code = http_code + "<p>Пустой параметр</p>"
+                    http_code += "<p>Пустой параметр</p>"
 
             except MultipleObjectsReturned:
-                http_code = http_code + "<p>Найдено более одного объекта</p>"
+                http_code += "<p>Найдено более одного объекта</p>"
             return HttpResponse(http_code) 
         elif 'all' in request.POST: 
             http_code = '<h2>all</h2>'   
             people = Person.objects.all() 
             for person in people:
-                http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
+                http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"       
             return HttpResponse(http_code) 
         elif 'filter' in request.POST: 
             http_code = '<h2>filter</h2>'  
-            http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+            http_code += f"<p>filter name: {name} filter age: {age}</p>"
             if name != None and age != None and name != '' and age != '':   
                 people = Person.objects.filter(name=name, age=age)
                 for person in people:
-                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
+                    http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"   
             else:
-                http_code = http_code + "<p>Пустой параметр</p>"
+                http_code += "<p>Пустой параметр</p>"
             return HttpResponse(http_code) 
         elif 'exclude' in request.POST: 
             http_code = '<h2>exclude</h2><p>С указанным именем, но исключая указанный возраст</p><p>... и это не работает ожидаемым образом по неизвестным мне причинам</p>'  
-            http_code = http_code + f"<p>filter name: {name} filter age: {age}</p>"
+            http_code += f"<p>filter name: {name} filter age: {age}</p>"
             if name != None and age != None and name != '' and age != '': 
                 people = Person.objects.filter(name=name).exclude(age=age)
                 for person in people:
-                    http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"      
+                    http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"      
             else:
-                    http_code = http_code + "<p>Пустой параметр</p>"
+                    http_code += "<p>Пустой параметр</p>"
             return HttpResponse(http_code) 
         elif 'in_bulk' in request.POST: 
             http_code = '<h2>in_bulk</h2>'       
             # http_code = f"<p>filter name: {name} filter age: {age}</p>"
             people = Person.objects.in_bulk() 
             for id in people:
-                http_code = http_code + f"<p>id: {people[id].id} name: {people[id].name} age: {people[id].age}</p>"  
+                http_code += f"<p>id: {people[id].id} name: {people[id].name} age: {people[id].age}</p>"  
             return HttpResponse(http_code) 
         elif 'offset_limit' in request.POST:             
             http_code = '<h2>offset_limit</h2><p>Выбираем первые 5 объектов, пропуская первые 5 объектов.</p>'    
             people = Person.objects.all()[5:10]
             for person in people:
-                http_code = http_code + f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"  
+                http_code += f"<p>id: {person.id} name: {person.name} age: {person.age}</p>"  
             return HttpResponse(http_code) 
         
 def page20_py_types(request):    
     http_code = ''
     a = True
-    http_code = http_code + f'<h2>bool</h2><p>code: a = True<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    http_code += f'<h2>bool</h2><p>code: a = True<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
     a = 1
-    http_code = http_code + f'<h2>int</h2><p>code: a = 1<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    http_code += f'<h2>int</h2><p>code: a = 1<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
     a = 0b1011
-    http_code = http_code + f'<p>code: a = 0b1011<br>a = {a:b}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в двоичной системе</p>'
+    http_code += f'<p>code: a = 0b1011<br>a = {a:b}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в двоичной системе</p>'
     a = 0o17
-    http_code = http_code + f'<p>code: a = 0o17<br>a = {a:o}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в восьмиричной системе</p>'
+    http_code += f'<p>code: a = 0o17<br>a = {a:o}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в восьмиричной системе</p>'
     a = 0xA1
-    http_code = http_code + f'<p>code: a = 0xA1<br>a = {a:x}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в шестнадцатеричной системе</p>'
+    http_code += f'<p>code: a = 0xA1<br>a = {a:x}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: int в шестнадцатеричной системе</p>'
     a = -1.23
-    http_code = http_code + f'<h2>float</h2><p>code: a = -1.23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: Число float может иметь только 18 значимых символов</p>'
+    http_code += f'<h2>float</h2><p>code: a = -1.23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}<br>description: Число float может иметь только 18 значимых символов</p>'
     a = .23
-    http_code = http_code + f'<p>code: a = .23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    http_code += f'<p>code: a = .23<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
     a = 3.9e3
-    http_code = http_code + f'<p>code: a = 3.9e3<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    http_code += f'<p>code: a = 3.9e3<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
     a = ("Laudate omnes gentes laudate "
          "Magnificat in secula ")
-    http_code = http_code + f'<h2>str</h2><p>code: a = ("Laudate omnes gentes laudate "<br>"Magnificat in secula ")<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
+    http_code += f'<h2>str</h2><p>code: a = ("Laudate omnes gentes laudate "<br>"Magnificat in secula ")<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'
     a = "Message:\n\"Hello World\""
-    http_code = http_code + r'<p>code: a = "Message:\n\"Hello World\""' + f'<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'    
+    http_code += r'<p>code: a = "Message:\n\"Hello World\""' + f'<br>a = {a}<br>a.__class__.__name__ = {a.__class__.__name__}</p>'    
     return HttpResponse(http_code)
            
 def page21_py_arithmetic_operations(request):  
     http_code = ''
     a = 2 + 2
-    http_code = http_code + f'<h2>+</h2><p>code: a = 2 + 2<br>a = {a}</p>'
+    http_code += f'<h2>+</h2><p>code: a = 2 + 2<br>a = {a}</p>'
     a += 2
-    http_code = http_code + f'<p>code: a += 2<br>a = {a}<br>description: Присвоение результата сложения</p>'
+    http_code += f'<p>code: a += 2<br>a = {a}<br>description: Присвоение результата сложения</p>'
     a = 10 - 10
-    http_code = http_code + f'<h2>-</h2><p>code: a = 10 - 10<br>a = {a}</p>'
+    http_code += f'<h2>-</h2><p>code: a = 10 - 10<br>a = {a}</p>'
     a -= 3
-    http_code = http_code + f'<p>code: a -= 3<br>a = {a}<br>description: Присвоение результата вычитания</p>'
+    http_code += f'<p>code: a -= 3<br>a = {a}<br>description: Присвоение результата вычитания</p>'
     a = 10 * 10
-    http_code = http_code + f'<h2>*</h2><p>code: a = 10 * 10<br>a = {a}</p>'
+    http_code += f'<h2>*</h2><p>code: a = 10 * 10<br>a = {a}</p>'
     a *= 0.36
-    http_code = http_code + f'<p>code: a *= 0.36<br>a = {a}<br>description: Присвоение результата умножения</p>'
+    http_code += f'<p>code: a *= 0.36<br>a = {a}<br>description: Присвоение результата умножения</p>'
     a = 10 / 10
-    http_code = http_code + f'<h2>/</h2><p>code: a = 10 / 10<br>a = {a}</p>'
+    http_code += f'<h2>/</h2><p>code: a = 10 / 10<br>a = {a}</p>'
     a = 2.0001 / 5
-    http_code = http_code + f'<p>code: a = 2.0001 / 5<br>a = {a}</p><br>description: Погрешности никто не отменял'
+    http_code += f'<p>code: a = 2.0001 / 5<br>a = {a}</p><br>description: Погрешности никто не отменял'
     a /= 3
-    http_code = http_code + f'<p>code: a /= 3<br>a = {a}<br>description: Присвоение результата деления</p>'
+    http_code += f'<p>code: a /= 3<br>a = {a}<br>description: Присвоение результата деления</p>'
     a = 7 // 2
-    http_code = http_code + f'<h2>//</h2><p>code: a = 7 // 2<br>a = {a}<br>description: Целочисленное деление двух чисел</p>'
+    http_code += f'<h2>//</h2><p>code: a = 7 // 2<br>a = {a}<br>description: Целочисленное деление двух чисел</p>'
     a //= 3
-    http_code = http_code + f'<p>code: a //= 3<br>a = {a}<br>description: Присвоение результата целочисленного деления</p>'
+    http_code += f'<p>code: a //= 3<br>a = {a}<br>description: Присвоение результата целочисленного деления</p>'
     a = 7 ** 2
-    http_code = http_code + f'<h2>**</h2><p>code: a = 7 ** 2<br>a = {a}<br>description: Возведение в степень</p>'
+    http_code += f'<h2>**</h2><p>code: a = 7 ** 2<br>a = {a}<br>description: Возведение в степень</p>'
     a **= 3
-    http_code = http_code + f'<p>code: a = 7 ** 2<br>a = {a}<br>description: Присвоение степени числа</p>'
+    http_code += f'<p>code: a = 7 ** 2<br>a = {a}<br>description: Присвоение степени числа</p>'
     a = 11 % 3
-    http_code = http_code + f'<h2>%</h2><p>code: a = 11 % 3<br>a = {a}<br>description: Получение остатка от деления</p>'
+    http_code += f'<h2>%</h2><p>code: a = 11 % 3<br>a = {a}<br>description: Получение остатка от деления</p>'
     a %= 2
-    http_code = http_code + f'<p>code: a %= 2<br>a = {a}<br>description: Присвоение остатка от деления</p>'
-    http_code = http_code + f'<h2>round()</h2>'
+    http_code += f'<p>code: a %= 2<br>a = {a}<br>description: Присвоение остатка от деления</p>'
+    http_code += f'<h2>round()</h2>'
     a = round(2.49)
-    http_code = http_code + f'<p>code: a = round(2.49)<br>a = {a}<br>description: Округление до ближайшего целого 2</p>'
+    http_code += f'<p>code: a = round(2.49)<br>a = {a}<br>description: Округление до ближайшего целого 2</p>'
     a = round(2.51)
-    http_code = http_code + f'<p>code: a = round(2.51)<br>a = {a}<br>description: Округление до ближайшего целого 3</p>'
-    http_code = http_code + f'<p>Если округляемая часть равна одинаково удалена от двух целых чисел, то округление идет к ближайшему четному</p>'
+    http_code += f'<p>code: a = round(2.51)<br>a = {a}<br>description: Округление до ближайшего целого 3</p>'
+    http_code += f'<p>Если округляемая часть равна одинаково удалена от двух целых чисел, то округление идет к ближайшему четному</p>'
     a = round(2.5)
-    http_code = http_code + f'<p>code: a = round(2.5)<br>a = {a}<br>description: 2 - ближайшее четное</p>'
+    http_code += f'<p>code: a = round(2.5)<br>a = {a}<br>description: 2 - ближайшее четное</p>'
     a = round(3.5)
-    http_code = http_code + f'<p>code: a = round(3.5)<br>a = {a}<br>description: 4 - ближайшее четное</p>' 
+    http_code += f'<p>code: a = round(3.5)<br>a = {a}<br>description: 4 - ближайшее четное</p>' 
     a = round(2.655, 2)
-    http_code = http_code + f'<p>code: a = round(2.655, 2)<br>a = {a}<br>description: 2.65 - округление не до четного. Потомучто.</p>'
+    http_code += f'<p>code: a = round(2.655, 2)<br>a = {a}<br>description: 2.65 - округление не до четного. Потомучто.</p>'
     return HttpResponse(http_code)       
 
 def page22_py_in(request):  
     http_code = ''
-    http_code = http_code + f'<h2>in</h2><p>code: "hello" in "hello world!"<br>a = {"hello" in "hello world!"}<br>description: Можно искать подстроку с помощью in</p>'
-    http_code = http_code + f'<p>code: "gold" in "hello world!"<br>a = {"gold" in "hello world!"}</p>'
+    http_code += f'<h2>in</h2><p>code: "hello" in "hello world!"<br>a = {"hello" in "hello world!"}<br>description: Можно искать подстроку с помощью in</p>'
+    http_code += f'<p>code: "gold" in "hello world!"<br>a = {"gold" in "hello world!"}</p>'
     return HttpResponse(http_code)  
 
 def page23_py_function_parameters(request):  
     http_code = ''
     def boo(*, arg1): return arg1
     a = boo(arg1=1)    
-    http_code = http_code + f'<p>code:<br>"def boo(*, arg1): return arg1 <br> a = boo(arg1=1)"<br>a = {a}<br>description: После "*, " идут именованные параметры</p>'
+    http_code += f'<p>code:<br>"def boo(*, arg1): return arg1 <br> a = boo(arg1=1)"<br>a = {a}<br>description: После "*, " идут именованные параметры</p>'
     def bar(arg1, /): return arg1
     a = bar(2) 
-    http_code = http_code + f'<p>code:<br>"def bar(arg1, /): return arg1 <br> a = bar(2)"<br>a = {a}<br>description: Параметры до символа ", /"  являются позиционными</p>'
+    http_code += f'<p>code:<br>"def bar(arg1, /): return arg1 <br> a = bar(2)"<br>a = {a}<br>description: Параметры до символа ", /"  являются позиционными</p>'
     def foo(arg1, /, arg2 = 10, *, arg3): return arg1 + arg2 + arg3
     a = foo(1, 2, arg3 = 3) 
-    http_code = http_code + f'<p>code:<br>"def foo(arg1, /, arg2 = 10, *, arg3): return arg1 + arg2 + arg3 <br> a = foo(1, 2, arg3 = 3)"<br>a = {a}<br>description: Позиционный обязательный / позиционный необзятальный * именованный'
+    http_code += f'<p>code:<br>"def foo(arg1, /, arg2 = 10, *, arg3): return arg1 + arg2 + arg3 <br> a = foo(1, 2, arg3 = 3)"<br>a = {a}<br>description: Позиционный обязательный / позиционный необзятальный * именованный'
     a = foo(1, arg3 = 3) 
-    http_code = http_code + f'<br>a = foo(1, arg3 = 3)<br>a = {a}'
+    http_code += f'<br>a = foo(1, arg3 = 3)<br>a = {a}'
     a = foo(1, arg3 = 3, arg2 = 7) 
-    http_code = http_code + f'<br>a = foo(1, arg3 = 3, arg2 = 7)<br>a = {a}</p>'
+    http_code += f'<br>a = foo(1, arg3 = 3, arg2 = 7)<br>a = {a}</p>'
     def far(*arg1):
         result = 0
         for i in arg1:
             result += i
         return result
     a = far(11, 12, 13)       
-    http_code = http_code + f'<p>code:<br>def far(*arg1):<br> for i in arg1:<br>result += i<br>a = far(11, 12, 13)<br>return result"<br>a = {a}<br>description: * перед именем параметра означает неопределенное количество значений</p>'
+    http_code += f'<p>code:<br>def far(*arg1):<br> for i in arg1:<br>result += i<br>a = far(11, 12, 13)<br>return result"<br>a = {a}<br>description: * перед именем параметра означает неопределенное количество значений</p>'
     return HttpResponse(http_code)  
 
 def page24_py_lambda(request):  
@@ -385,7 +385,7 @@ def page24_py_lambda(request):
             return boo
     operation = select_operation(1) 
     a = operation(3, 2)
-    http_code = http_code + f'''<p><pre>code:
+    http_code += f'''<p><pre>code:
 def boo(a, b):
     return a * b
 def select_operation(choice):
@@ -397,7 +397,7 @@ operation = select_operation(1)
 a = operation(3, 2)<pre>a = {a}</p>'''
     operation = select_operation(2) 
     a = operation(3, 2)
-    http_code = http_code + f'<p>operation = select_operation(2)<br>a = operation(3, 2)<br>a = {a}</p>'   
+    http_code += f'<p>operation = select_operation(2)<br>a = operation(3, 2)<br>a = {a}</p>'   
     return HttpResponse(http_code)  
 
 def page25_py_global_nonlocal(request):  
@@ -407,7 +407,7 @@ def page25_py_global_nonlocal(request):
         nonlocal local_a
         local_a = 'local_a`'
     boo()
-    http_code = http_code + f'''<h2>nonlocal</h2><p><pre>code:
+    http_code += f'''<h2>nonlocal</h2><p><pre>code:
 local_a = 'local_a'
 def boo():
     nonlocal local_a
@@ -417,7 +417,7 @@ boo()<pre>local_a = {local_a}<br>description: nonlocal позволяет раб
         global global_b
         global_b = 'global_b'
     bar()
-    http_code = http_code + f'''<h2>global</h2><p><pre>code:
+    http_code += f'''<h2>global</h2><p><pre>code:
 def bar():
     global global_b
     global_b = 'global_b'
@@ -429,12 +429,12 @@ def page26_py_string(request):
     song = """When an eel grabs your arm,
 And it causes great harm, 
 That's - a moray!"""
-    http_code = http_code + f'<p><pre>{song}</pre></p>'
+    http_code += f'<p><pre>{song}</pre></p>'
     result = song.replace(' m', ' M')
     http_code = http_code +"<p>code:</p><p><pre>result = song.replace(' m', ' M')</pre></p>"
-    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
-    http_code = http_code + '<h2>5.2</h2><p>Выведите на экран все вопросы из списка, а так же правильные ответы в таком виде:</p>'
-    http_code = http_code + "<p>Q: вопрос</p><p>A: ответ</p>"
+    http_code += f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code += '<h2>5.2</h2><p>Выведите на экран все вопросы из списка, а так же правильные ответы в таком виде:</p>'
+    http_code += "<p>Q: вопрос</p><p>A: ответ</p>"
     questions = [ 
 "We don't serve strings around here. Are you a string?", 
 "What is said on Father's Day in the forest?", 
@@ -442,8 +442,8 @@ That's - a moray!"""
     answers = [ "An exploding sheep.", 
 "No, I'm a frayed knot.", 
 "'Pop!' goes the weasel." ]  
-    http_code = http_code + f'<p>{questions =}</p>'
-    http_code = http_code + f'<p>{answers =}</p>'
+    http_code += f'<p>{questions =}</p>'
+    http_code += f'<p>{answers =}</p>'
     result = ''
     q_a = ((0, 1), (1, 2), (2, 0)) 
     for q, a in q_a:
@@ -455,34 +455,78 @@ q_a = ((0, 1), (1, 2), (2, 0))
 for q, a in q_a:
     result = result + f'Q: {questions[q]}\\n'
     result = result + f'A: {answers[a]}\\n'</pre></p>'''
-    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code += f'<p>result:</p><p><pre>{result}</pre></p>'  
     base_name = ["Spitz", "Duck", "Pumpkin"] 
     result = ''
     for item in base_name:
         result = result + '%sy Mc%sface\n' % (item, item)
-    http_code = http_code + '<h2>5.4</h2><p>Форматирование в старом стиле</p>'
+    http_code += '<h2>5.4</h2><p>Форматирование в старом стиле</p>'
     http_code = http_code +'''<p>code:</p><p>
 <pre>for item in base_name:
 result = result + '%sy Mc%sface\\n' % (item, item)</pre></p>'''
-    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code += f'<p>result:</p><p><pre>{result}</pre></p>'  
     result = ''
     for item in base_name:
         result = result + '{}y Mc{}face\n'.format(item, item)
-    http_code = http_code + '<h2>5.5</h2><p>Форматирование в новом стиле</p>'
+    http_code += '<h2>5.5</h2><p>Форматирование в новом стиле</p>'
     http_code = http_code +'''<p>code:</p><p>
 <pre>for item in base_name:
 result = result + '{}y Mc{}face\\n' % (item, item)</pre></p>'''
-    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code += f'<p>result:</p><p><pre>{result}</pre></p>'  
     result = ''
     for item in base_name:
         result = result + f'{item} Mc{item}yface\n'
-    http_code = http_code + '<h2>5.6</h2><p>Форматирование с использованием f-строк</p>'
-    http_code = http_code +'''<p>code:</p><p>
+    http_code += '<h2>5.6</h2><p>Форматирование с использованием f-строк</p>'
+    http_code += '''<p>code:</p><p>
 <pre>for item in base_name:
 result = result + f'{item}y Mc{item}face\\n'</pre></p>'''
-    http_code = http_code + f'<p>result:</p><p><pre>{result}</pre></p>'  
+    http_code += f'<p>result:</p><p><pre>{result}</pre></p>'  
 
     return HttpResponse(http_code)  
+
+def page27_py_list_tuple(request): 
+    http_code = ''
+    surprise = ['Groucho','chico','Harpo']
+    http_code += f'<h2>7.9</h2><p>Вывести последний элемент списка {surprise =} в обратном порядке сначала привести к строчным буквам все буквы, а потом первую букву сделать заглавной</p>'   
+    result = ''.join(reversed(surprise[-1])).lower().capitalize()    
+    http_code += "<p>code:''.join(reversed(surprise[-1])).lower().capitalize()</p>"
+    http_code += f"<p>{result =}</p>"
+    result = surprise[-1][::-1].lower().capitalize()
+    http_code += "<p>code:surprise[-1][::-1].lower().capitalize()</p>"
+    http_code += f"<p>{result =}</p>"
+    http_code += f'<h2>7.10</h2><p>Используйте списковое включение, чтобы создать список с именем even, в котором будут содежаться\
+    четные числа в промежутке range(10)</p>'
+    even = [number for number in range(10) if number%2 == 0] 
+    http_code += "<p>code:seven = [number for number in range(10) if number%2 == 0]</p>"
+    http_code += f"<p>{even =}</p>"
+    start1 = ['fee', 'fie', 'foe']
+    rhymes = [("flop", "get a mop"),
+              ("fope", "turn the rope"),
+              ("fa", "get your ma"),
+              ("fudge", "call the judge"),
+              ("fat", "pet the cat"),
+              ("fog", "walk the dog"),
+              ("fun", "say we're done"),]
+    start2 = "Someone better"
+    http_code += f'<h2>7.11</h2><p>Собрать считалочку (подробнее в книге)</p>'
+    http_code += f'<p>{start1 =}</p>'
+    http_code += f'<p>{rhymes =}</p>'
+    http_code += f'<p>{start2 =}</p>'
+    star_prefix = ' '.join([element.capitalize() + '!' for element in start1])
+    result = list()
+    for first, second in rhymes:
+        result.append(f'{star_prefix} {first.capitalize()}!')
+        result.append(f'{start2} {second}.')
+
+    http_code += '''<p><pre>code:
+star_prefix = ' '.join([element.capitalize() + '!' for element in start1])
+result = list()
+for first, second in rhymes:
+    result.append(f'{star_prefix} {first.capitalize()}!')
+    result.append(f'{start2} {second}.')</pre></p>'''
+    http_code += f"<p><pre>result:<br>{'<br>'.join([line for line in result])}</pre></p>"
+    return HttpResponse(http_code)  
+
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
