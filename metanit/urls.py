@@ -52,6 +52,7 @@ urlpatterns = [
     path("page25_py_global_nonlocal", views.page25_py_global_nonlocal),
     path("page26_py_string", views.page26_py_string),
     path("page27_py_list_tuple", views.page27_py_list_tuple),
+    path("page28_py_dict_set", views.page28_py_dict_set),
     # основные страницы 
     path("", views.about),
     path("about/", views.about),

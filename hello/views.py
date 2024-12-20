@@ -527,6 +527,64 @@ for first, second in rhymes:
     http_code += f"<p><pre>result:<br>{'<br>'.join([line for line in result])}</pre></p>"
     return HttpResponse(http_code)  
 
+def page28_py_dict_set(request): 
+    http_code = ''
+    http_code += '<h2>8</h2><p>Поменять местами ключ значение</p>'
+    e2f = {'dog':'chien','cat':'chat','walrus':'morse'}
+    f2e = {}
+    for key, value in e2f.items():
+        f2e[value] = key
+    http_code += '''<p><pre>code:
+e2f = {'dog':'chien','cat':'chat','walrus':'morse'}
+f2e = {}
+for key, value in e2f.items():
+    f2e[value] = key</pre></p>'''
+    http_code += f"<p><pre>result:<br>{f2e}</pre></p>"
+    http_code += '<p>Многоуровеневый словарь</p>'    
+    life = {
+    'animals': {
+        'Cats': [
+            'Henri', 'Grumpy', 'Luci'
+            ], 
+        'octopi':{}, 
+        'emus':{}
+        },
+    'plants':{},
+    'othes':{}
+    }
+    http_code += '''<p><pre>code:
+life = {
+'animals': {
+    'Cats': [
+        'Henri', 'Grumpy', 'Luci'
+        ], 
+    'octopi':{}, 
+    'emus':{}
+    },
+'plants':{},
+'othes':{}
+}</pre></p>'''
+    http_code += f"<p><pre>{life =}</pre></p>"
+    http_code += '<p>Генератор словаря</p>'   
+    squares = {element: element*element for element in range(10)}
+    http_code += '''<p><pre>code:squares = {element: element*element for element in range(10)}</pre></p>'''
+    http_code += f"<p><pre>{squares =}</pre></p>"
+    http_code += '<p>Генератор множества нечетных чисел</p>'   
+    odd = {element for element in range(10) if element % 2 == 1}
+    http_code += '''<p><pre>code:odd = {element for element in range(10) if element % 2 == 1}</pre></p>'''
+    http_code += f"<p><pre>{odd =}</pre></p>"
+    http_code += '<p>Создание словаря с помощью zip()</p>'   
+    key = ('optimist', 'pessimist', 'troll')
+    value = ('The glass is half full','The glass is half empty','How did you get a glass?')
+    fr = dict(zip(key, value))
+    http_code += '''<p><pre>code:
+key = ('optimist', 'pessimist', 'troll')
+value = ('The glass is half full','The glass is half empty','How did you get a glass?')
+fr = dict(zip(key, value))</pre></p>'''
+    http_code += f"<p><pre>{fr =}</pre></p>"
+    return HttpResponse(http_code)  
+
+
 
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
