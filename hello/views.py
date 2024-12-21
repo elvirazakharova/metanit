@@ -7,11 +7,45 @@ from .forms import UserForm, FieldTypesForm
 from .models import Person
 import asyncio
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+import copy
 
 # уроки
   
 def lessons(request): 
     return render(request, "lessons.html")   
+
+def strange_things(request): 
+    return render(request, "strange_things.html")   
+
+def default_value_of_a_mutable_type(request): 
+    http_code = ''
+    b_history = []
+    def do_somthing(b = []):
+        global b_copy
+        b.append(len(b))   
+        b_history.append(copy.deepcopy(b))
+
+    do_somthing()
+    do_somthing()
+
+    http_code += f'''<h2>Баг при параметре по умолчанию изменяемого типа</h2><p><pre>Где лежит b? 
+Когда она именно она инициализировалась? 
+В каком пространстве имен лежит b? 
+Почему что-то объявленное внутри функции хранится после завершения функции и недоступно снаружи? 
+Почему не снялся счетчик ссылок на переменную b?
+
+Code: 
+b_history = []
+def do_somthing(b = []):
+    global b_copy
+    b.append(len(b))   
+    b_history.append(copy.deepcopy(b))
+
+do_somthing()
+do_somthing()
+
+result:{b_history =}</pre></p>'''
+    return HttpResponse(http_code)  
 
 def page01_text(request):
     return HttpResponse("Это обычный текст")
@@ -584,6 +618,77 @@ fr = dict(zip(key, value))</pre></p>'''
     http_code += f"<p><pre>{fr =}</pre></p>"
     return HttpResponse(http_code)  
 
+def page29_py_functions(request): 
+    http_code = ''
+    http_code += '<h2>9.1 Генератор</h2>'
+    result = 0
+    def get_odds():
+        for element in range(1,10,2):
+            yield element
+    i = 1
+    for element in get_odds():
+        if i == 3:
+            result = element
+            break
+        i += 1
+    http_code += '''<p><pre>code: 
+result = 0
+def get_odds():
+    for element in range(1,10,2):
+        yield element
+i = 1
+for element in get_odds():
+    if i == 3:
+        result = element
+        break
+i += 1
+</pre></p>'''
+    http_code += f"<p><pre>{result =}</pre></p>"   
+    http_code += '<h2>9.2 Декоратор</h2>'
+    http_code += '''<p><pre>code: 
+def test(func, *args, **kwars):
+    def new_function(*args, **kwars):
+        print('start')
+        result = func(*args, **kwars)
+        print('end')
+        return result
+    return new_function
+new_print = test(print)
+new_print('2')
+
+@test
+def sing_song(lyrics):
+    for word in lyrics.split():
+        print(f'{word}')
+
+sing_song('AAA OOO UUUU!')       
+    </pre></p>'''
+    http_code += f'''<p><pre>result:
+2
+end
+start
+AAA
+OOO
+UUUU!
+end</pre></p>'''  
+    http_code += '<h2>9.3 Исключения</h2>'
+    result = ''
+    try:
+        raise OopsException
+    except OopsException as err:
+        result =' Caught an oops'
+    http_code += '''<p><pre>code:  
+class OopsException(Exception):
+    pass   
+    
+result = ''
+try:
+    raise OopsException
+except OopsException as err:
+    result =' Caught an oops'    
+</pre></p>'''
+    http_code += f'''<p><pre>result:{result =}</pre></p>'''
+    return HttpResponse(http_code)  
 
 
 # def index(request):
@@ -608,6 +713,7 @@ def awesome(request):
     return render(request, "awesome.html")   
 
 
-
+class OopsException(Exception):
+    pass
 
  

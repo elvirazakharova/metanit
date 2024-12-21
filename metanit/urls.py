@@ -19,6 +19,8 @@ from hello import views
  
 urlpatterns = [
     # Уроки
+    path("strange_things", views.strange_things),
+    path("default_value_of_a_mutable_type", views.default_value_of_a_mutable_type),    
     path("lessons", views.lessons),
     path("page01_text", views.page01_text),
     path("page02_html", views.page02_html),
@@ -53,6 +55,7 @@ urlpatterns = [
     path("page26_py_string", views.page26_py_string),
     path("page27_py_list_tuple", views.page27_py_list_tuple),
     path("page28_py_dict_set", views.page28_py_dict_set),
+    path("page29_py_functions", views.page29_py_functions),
     # основные страницы 
     path("", views.about),
     path("about/", views.about),
