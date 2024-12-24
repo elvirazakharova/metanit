@@ -47,6 +47,17 @@ do_somthing()
 result:{b_history =}</pre></p>'''
     return HttpResponse(http_code)  
 
+def add_new_instance_attribute(request): 
+    http_code = ''
+    http_code += f'''<p>Ты можешь взять экземпляр класса, задать через точку новое поле и оно у него будет.</p><p>
+<pre>class A:
+    pass
+a = A()
+a.new_field = 'ABC'
+print(a.new_field) даст ABC</pre></p>'''
+    return HttpResponse(http_code)  
+
+
 def page01_text(request):
     return HttpResponse("Это обычный текст")
 
@@ -690,7 +701,54 @@ except OopsException as err:
     http_code += f'''<p><pre>result:{result =}</pre></p>'''
     return HttpResponse(http_code)  
 
-
+def page30_py_objects_classes(request): 
+    http_code = ''
+    http_code += '<h2>10</h2><p>Магические методы, атрибуты объекта, скрытое имя артибута объекта</p>'
+    http_code += '''<p><pre>code:
+class Element():
+    def __init__(self, name, symbol, number):
+        self.__name = name
+        self.__symbol = symbol
+        self.__number = number
+    @property
+    def name(self):
+        return self.__name   
+    @property
+    def symbol(self):
+        return self.__symbol   
+    @property
+    def number(self):
+        return self.__number   
+    def __str__(self):
+        return f'{self.name =} {self.symbol =} {self.number =}'        
+dict_hydrogen = dict(name = 'Hydrogen', symbol = 'H', number = 1)
+hydrogen = Element(**dict_hydrogen)
+print(hydrogen)
+result:
+self.name ='Hydrogen' self.symbol ='H' self.number =1</pre></p>'''
+    http_code += '<p>Агрегирование и композиция</p>'
+    http_code += '''<p><pre>code:
+class Laser:
+    def does(self):
+        return 'disintegrate'
+class Claw:
+    def does(self):
+        return 'crush'
+class SmartPhone:
+    def does(self):
+        return 'ring'    
+class Robot:
+    def __init__(self):
+        self.laser = Laser()
+        self.claw = Claw()
+        self.smartPhone = SmartPhone()
+    def does(self):
+        print(self.laser.does(), self.claw.does(), self.smartPhone.does())
+robot = Robot()
+robot.does()
+result:
+disintegrate crush ring</pre></p>'''
+    return HttpResponse(http_code)  
 # def index(request):
 #     header = "Данные пользователя"              # обычная переменная
 #     langs = ["Python", "Java", "C#"]            # список

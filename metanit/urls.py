@@ -21,6 +21,7 @@ urlpatterns = [
     # Уроки
     path("strange_things", views.strange_things),
     path("default_value_of_a_mutable_type", views.default_value_of_a_mutable_type),    
+    path("add_new_instance_attribute", views.add_new_instance_attribute),   
     path("lessons", views.lessons),
     path("page01_text", views.page01_text),
     path("page02_html", views.page02_html),
@@ -56,6 +57,7 @@ urlpatterns = [
     path("page27_py_list_tuple", views.page27_py_list_tuple),
     path("page28_py_dict_set", views.page28_py_dict_set),
     path("page29_py_functions", views.page29_py_functions),
+    path("page30_py_objects_classes", views.page30_py_objects_classes),    
     # основные страницы 
     path("", views.about),
     path("about/", views.about),
